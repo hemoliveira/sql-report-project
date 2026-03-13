@@ -1,113 +1,75 @@
 # Business Analytics Database Project
 
-This project was created to demonstrate SQL skills for freelance and backend/data jobs.
+This project was created to demonstrate SQL skills for freelance,
+backend, and data-related roles.
 
-The database simulates a simple sales system with customers, products, orders, and order items.
+The database simulates a simple sales management system containing
+customers, products, orders, and order items. It includes examples of
+database modeling, data manipulation, reporting queries, and performance
+optimization.
 
-The project includes:
+------------------------------------------------------------------------
 
-- Database creation
-- Sample data insertion
-- Report queries
-- Views
-- Indexes
-- Query optimization examples
+# Technologies
 
-Technologies used:
+-   MySQL
+-   XAMPP
+-   SQL
+-   Git & GitHub
 
-- MySQL
-- XAMPP
-- SQL
-- GitHub
+------------------------------------------------------------------------
 
----
+# Project Features
 
-## Database structure
+-   Database creation
+-   Sample data insertion
+-   Report queries
+-   Views
+-   Procedures
+-   Functions
+-   Triggers
+-   Indexes
+-   Query optimization
+
+------------------------------------------------------------------------
+
+# Database Structure
 
 Tables:
 
-- customers
-- products
-- orders
-- order_items
+-   customers
+-   products
+-   orders
+-   order_items
 
 Relationships:
 
-customers -> orders -> order_items -> products
+customers -\> orders -\> order_items -\> products
 
----
+------------------------------------------------------------------------
 
-## Files
+# Files
 
 01_create_tables.sql
-Creates database and tables
-
 02_triggers.sql
-Creates triggers
-
-03_indexes.sql  
-Indexes for performance
-
-04_insert_data.sql  
-Inserts sample data
-
+03_indexes.sql
+04_insert_data.sql
 05_functions.sql
-
-06_views.sql  
-Views for reports
-
+06_views.sql
 07_procedures.sql
+08_queries.sql
+09_optimization.sql
 
-08_queries.sql  
-Report queries and joins
+------------------------------------------------------------------------
 
-09_optimization.sql  
-Query optimization examples
-
----
-
-## Example queries
-
-Total sales per customer
-
-Total sales per product
-
-Sales by date
-
-Top customers
-
-Customers without orders
-
----
-
-## How to run
-
-1. Create database
+# How to run
 
 CREATE DATABASE company_sales_db;
 
-2. Run create_tables.sql
+Run scripts in order.
 
-3. Run insert_data.sql
+------------------------------------------------------------------------
 
-4. Run queries.sql
+# Author
 
-5. Run views.sql
-
-6. Run indexes.sql
-
-7. Run optimization.sql
-
----
-
-## Purpose
-
-This project is part of my portfolio for freelance work involving:
-
-- SQL
-- Database development
-- Query optimization
-- Backend support
-- Data analysis
-- Reporting
-
+Henrique Oliveira
