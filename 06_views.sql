@@ -1,4 +1,4 @@
--- 1. Sales Report View (Estilizada para Relatórios)
+-- 1. Sales Report View
 CREATE OR REPLACE VIEW vw_sales_report AS
 SELECT
     o.order_id,
@@ -6,31 +6,31 @@ SELECT
     c.name AS customer,
     p.name AS product,
     oi.quantity,
-    oi.unit_price, -- Adicionado para transparência
+    oi.unit_price,
     fn_format_currency(oi.total) AS total_price_formatted,
-    oi.total AS total_price_raw -- Útil para o Python processar somas
+    oi.total AS total_price_raw
 FROM tb_order_items oi
 JOIN tb_orders o ON o.order_id = oi.order_id
 JOIN tb_customers c ON c.customer_id = o.customer_id
 JOIN tb_products p ON p.product_id = oi.product_id
 WHERE o.deleted_at IS NULL 
-  AND oi.deleted_at IS NULL; -- Garante que itens removidos não apareçam
+  AND oi.deleted_at IS NULL;
 
--- 2. Total by Customer View (Financeira)
+-- 2. Total by Customer View
 CREATE OR REPLACE VIEW vw_total_by_customer AS
 SELECT
     c.name AS customer_name,
-    COUNT(DISTINCT o.order_id) AS total_orders, -- Adicionado: métrica extra
+    COUNT(DISTINCT o.order_id) AS total_orders,
     SUM(oi.total) AS total_value_raw,
     fn_format_currency(SUM(oi.total)) AS total_value_formatted
 FROM tb_customers c
 JOIN tb_orders o ON o.customer_id = c.customer_id
 JOIN tb_order_items oi ON oi.order_id = o.order_id
 WHERE o.deleted_at IS NULL 
-  AND c.deleted_at IS NULL -- Filtra apenas clientes ativos
-GROUP BY c.customer_id, c.name; -- Agrupar por ID é mais seguro para nomes duplicados
+  AND c.deleted_at IS NULL
+GROUP BY c.customer_id, c.name;
 
--- 3. Never Sold Products View (Análise de Estoque)
+-- 3. Never Sold Products View
 CREATE OR REPLACE VIEW vw_never_sold_products AS
 SELECT 
     p.product_id,
@@ -42,7 +42,7 @@ LEFT JOIN tb_order_items oi ON p.product_id = oi.product_id
 WHERE oi.product_id IS NULL 
   AND p.deleted_at IS NULL;
 
--- 4. Low Performance Products View (Análise de Desempenho)
+-- 4. Low Performance Products View
 CREATE OR REPLACE VIEW vw_low_performance_products AS
 SELECT 
     p.name AS product,
@@ -56,7 +56,7 @@ GROUP BY p.product_id, p.name, p.category
 HAVING total_units_sold < 5
 ORDER BY total_units_sold ASC;
 
--- 5. Audit Report View (Auditoria)
+-- 5. Audit Report View
 CREATE OR REPLACE VIEW vw_audit_report AS
 SELECT 
     a.id AS log_id,
@@ -68,3 +68,14 @@ SELECT
     DATE_FORMAT(a.created_at, '%H:%i:%s') AS action_time
 FROM tb_audit_log a
 ORDER BY a.created_at DESC;
+
+-- 6. Active Customers View
+CREATE OR REPLACE VIEW vw_active_customers AS
+SELECT
+    customer_id,
+    name,
+    city,
+    created_at,
+    updated_at
+FROM tb_customers
+WHERE deleted_at IS NULL;
